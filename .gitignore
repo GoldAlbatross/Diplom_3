@@ -1,5 +1,5 @@
-target/
-.allure
+target/*
+.allure*
 
 !target/allure-results/
 !target/allure-reports/
