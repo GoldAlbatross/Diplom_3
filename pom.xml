@@ -52,6 +52,15 @@
             <version>5.3.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- RestAssured для API-тестирования -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -88,3 +97,4 @@
         </plugins>
     </build>
 </project>
+

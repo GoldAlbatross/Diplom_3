@@ -1,13 +1,17 @@
 package org.example.pages;
 
 import io.qameta.allure.Step;
-import org.example.Browser;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.example.Constants;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Map;
+
+import static io.restassured.RestAssured.given;
 
 public class RegistrationPage {
 
@@ -18,6 +22,8 @@ public class RegistrationPage {
     private static final By INPUT_NAME = By.xpath("//div[label[text()='Имя']]/input");
     private static final By REGISTER_BUTTON = By.xpath("//button[text()='Зарегистрироваться']");
     private static final By LINK_LOGIN = By.xpath("//a[contains(@class, 'Auth_link__1fOlj') and text()='Войти']");
+
+    private static final String AUTHORIZATION = "Authorization";
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -31,6 +37,33 @@ public class RegistrationPage {
     private void waitForElementToBeVisible(By locator) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    @Step("Авторизация пользователя и получение accessToken")
+    public String authorizeAndGetToken(String postUrl, String email, String password) {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(Map.of(
+                        "email", email,
+                        "password", password
+                ))
+                .when()
+                .post(postUrl)
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        // Извлекаем accessToken из JSON-ответа
+        return response.jsonPath().getString("accessToken");
+    }
+
+    @Step("Удаление пользователя")
+    public void deleteUser(String accessToken, String post) {
+           given()
+                .header(AUTHORIZATION, accessToken)
+                .when()
+                .delete(post);
     }
 
     @Step("Ввод email")

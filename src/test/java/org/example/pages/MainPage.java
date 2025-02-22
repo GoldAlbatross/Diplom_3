@@ -1,7 +1,6 @@
 package org.example.pages;
 
 import io.qameta.allure.Step;
-import org.example.Browser;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;

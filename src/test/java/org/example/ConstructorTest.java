@@ -12,20 +12,12 @@ public class ConstructorTest {
 
     private WebDriver driver;
     private MainPage mainPage;
-    private RegistrationPage registrationPage;
-    private LoginPage loginPage;
-    private RecoveryPasswordPage recoveryPasswordPage;
-    private PersonalAccountPage personalAccountPage;
 
     @Before
     public void setUp() {
         driver = Browser.getWebDriver("chrome");
         driver.get(Constants.PAGE_MAIN);
         mainPage = new MainPage(driver);
-        loginPage = new LoginPage(driver);
-        recoveryPasswordPage = new RecoveryPasswordPage(driver);
-        registrationPage = new RegistrationPage(driver);
-        personalAccountPage = new PersonalAccountPage(driver);
     }
 
     @After

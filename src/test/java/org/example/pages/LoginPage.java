@@ -1,7 +1,6 @@
 package org.example.pages;
 
 import io.qameta.allure.Step;
-import org.example.Browser;
 import org.example.Constants;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,7 +16,6 @@ public class LoginPage {
     private static final By BTN_LOGIN = By.xpath("//button[contains(@class, 'button_button__33qZ0') and normalize-space(text())='Войти']");
     private static final By INPUT_PASSWORD = By.xpath("//input[@class='text input__textfield text_type_main-default' and @type='password']");
     private static final By TEXT_ENTER = By.xpath("//h2[contains(text(), 'Вход')]");
-    private static final By LINK_CONSTRUCTOR = By.xpath("//a[contains(@class, 'AppHeader_header__link__3D_hX') and .//p[text()='Конструктор']]");
     private static final By BTN_RECOVERY_PASSWORD = By.xpath("//a[contains(@class, 'Auth_link__') and text()='Восстановить пароль']");
 
     public LoginPage(WebDriver driver) {
@@ -27,11 +25,6 @@ public class LoginPage {
     private void waitForElementToBeClickable(By locator) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    private void waitForElementToBeVisible(By locator) {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void enterEmail() {

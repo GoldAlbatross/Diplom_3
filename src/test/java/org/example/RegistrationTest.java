@@ -1,7 +1,7 @@
 package org.example;
 
+import io.restassured.RestAssured;
 import org.example.pages.LoginPage;
-import org.example.pages.MainPage;
 import org.example.pages.RegistrationPage;
 import org.junit.After;
 import org.junit.Before;
@@ -15,16 +15,16 @@ public class RegistrationTest {
 
     private WebDriver driver;
     private RegistrationPage registrationPage;
-    private MainPage mainPage;
     private LoginPage loginPage;
+    private String accessToken;
 
 
     @Before
     public void setUp() {
+        RestAssured.baseURI = Constants.BASE_URL;
         driver = Browser.getWebDriver("chrome");
         driver.get(Constants.PAGE_REGISTRATION);
         registrationPage = new RegistrationPage(driver);
-        mainPage = new MainPage(driver);
         loginPage = new LoginPage(driver);
     }
 
@@ -37,6 +37,8 @@ public class RegistrationTest {
     public void checkRegistration() {
         registrationPage.registration(Constants.CORRECT_PASSWORD_FOR_REGISTRATION);
         assertTrue(loginPage.isRegistrationCorrect());
+        accessToken = registrationPage.authorizeAndGetToken(Constants.POST_FOR_AUTHORIZATION, Constants.EMAIL_FOR_REGISTRATION, Constants.CORRECT_PASSWORD_FOR_REGISTRATION);
+        registrationPage.deleteUser(accessToken, Constants.POST_FOR_DELETE);
     }
 
     @Test
