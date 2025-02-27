@@ -13,12 +13,12 @@ public class MainPage {
 
     private static final By BTN_LOGIN_IN_ACCOUNT = By.xpath("//button[text()='Войти в аккаунт']");
     private static final By BTN_CREATE_ORDER = By.xpath("//button[text()='Оформить заказ']");
-    private static final By SELECTION_OF_BUN = By.xpath("//div[@style='display: flex;']/div[1]/span[text()='Булки']");
-    private static final By SELECTION_OF_SAUCES = By.xpath("//div[@style='display: flex;']/div[2]/span[text()='Соусы']");
-    private static final By SELECTION_OF_FELLING = By.xpath("//div[@style='display: flex;']/div[3]/span[text()='Начинки']");
-    private static final By TEXT_BUN = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']//h2[text()='Булки']");
-    private static final By TEXT_SAUCE = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']//h2[text()='Соусы']");
-    private static final By TEXT_FELLING = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']//h2[text()='Начинки']\n");
+    private static final By SELECTION_OF_BUN = By.xpath("//div[contains(@class, 'tab_tab__1SPyG') and span[text()='Булки']]");
+    private static final By SELECTION_OF_BUN_ACTIVE = By.xpath("//div[contains(@class, 'tab_tab_type_current__2BEPc') and span[text()='Булки']]");
+    private static final By SELECTION_OF_SAUCES = By.xpath("//div[span[text()='Соусы']][not(contains(@class, 'tab_tab_type_current__'))]");
+    private static final By SELECTION_OF_SAUCES_ACTIVE = By.xpath("//div[contains(@class, 'tab_tab_type_current__')][span[text()='Соусы']]");
+    private static final By SELECTION_OF_FELLING = By.xpath("//div[contains(@class, 'tab_tab__1SPyG') and span[text()='Начинки']]");
+    private static final By SELECTION_OF_FELLING_ACTIVE = By.xpath("//div[contains(@class, 'tab_tab_type_current__2BEPc') and span[text()='Начинки']]");
     private static final By LINK_PERSONAL_ACCOUNT = By.xpath("//a[contains(@class, 'AppHeader_header__link__3D_hX') and contains(., 'Личный Кабинет')]");
 
     public MainPage(WebDriver driver) {
@@ -69,8 +69,8 @@ public class MainPage {
         try {
             clickSelectionOfSauce();
             clickSelectionOfBun();
-            waitForElementToBeVisible(TEXT_BUN);
-            return driver.findElement(TEXT_BUN).isDisplayed();
+            waitForElementToBeVisible(SELECTION_OF_BUN_ACTIVE);
+            return driver.findElement(SELECTION_OF_BUN_ACTIVE).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
@@ -80,8 +80,8 @@ public class MainPage {
     public boolean isSauce() {
         try {
             clickSelectionOfSauce();
-            waitForElementToBeVisible(TEXT_SAUCE);
-            return driver.findElement(TEXT_SAUCE).isDisplayed();
+            waitForElementToBeVisible(SELECTION_OF_SAUCES_ACTIVE);
+            return driver.findElement(SELECTION_OF_SAUCES_ACTIVE).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
@@ -91,8 +91,8 @@ public class MainPage {
     public boolean isFelling() {
         try {
             clickSelectionOfFelling();
-            waitForElementToBeVisible(TEXT_FELLING);
-            return driver.findElement(TEXT_FELLING).isDisplayed();
+            waitForElementToBeVisible(SELECTION_OF_FELLING_ACTIVE);
+            return driver.findElement(SELECTION_OF_FELLING_ACTIVE).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
